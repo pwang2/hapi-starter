@@ -19,9 +19,10 @@ A minimal boilerplate for a full-stack application using
 * Client script bundle are named as hash only to enable cross page caching.
   Possibly we should make each node\_module module as a bundle to get the best
   cache result
-* partials need to be put in a shareable place and configure before server start
+* Partials need to be put in a shareable place and configure before server start
 * babel-register might have performance penalty at runtime.
-* nodemon NOT yet reloads the browser(WIP)
+* Nodemon NOT yet reloads the browser
+* Need to define specification for page plugin
 
 ### Get Started
 ```
