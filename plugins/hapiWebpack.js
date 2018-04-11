@@ -33,10 +33,9 @@ export default {
   register: async (server, options) => {
     if (options.dev) {
       const compiler = webpack(options.webpackConfig)
-
       checkHMRPlugin(compiler)
 
-      const devMiddleware = webpackDevMiddleware(compiler)
+      const devMiddleware = webpackDevMiddleware(compiler, { logLevel: 'warn' })
       const hotMiddleware = webpackHotMiddleware(compiler)
 
       server.ext('onRequest', async (request, h) => {

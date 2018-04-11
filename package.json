@@ -29,6 +29,7 @@
     "eslint-plugin-import": "^2.10.0",
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-vue": "^4.4.0",
+    "extract-text-webpack-plugin": "^3.0.2",
     "glob": "^7.1.2",
     "glue": "^5.0.0",
     "good": "^8.1.1",
