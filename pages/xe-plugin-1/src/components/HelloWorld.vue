@@ -2,6 +2,7 @@
   <div>
     <div class="message">{{message}}</div>
     <div class="prop-message message">{{pmessage}}</div>
+    <div><span v-text="asyncMessage===''?'loading':'loaded'"></span> asynchronously from split chunk</div>
     <marquee direction="down" width="250" height="200" behavior="alternate" style="border:1px solid
 #534534">
     <marquee behavior="alternate"> {{asyncMessage}} </marquee>
@@ -22,7 +23,7 @@ export default {
       const { default: codemirror } = await import('codemirror')
       const { version } = codemirror
       this.asyncMessage = `codemirror ${version} loaded`
-    }, 1000)
+    }, 2000)
   }
 }
 </script>

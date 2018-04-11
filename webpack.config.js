@@ -12,10 +12,8 @@ const instrumentViewFiles = (page) => {
   const views = glob.sync(`./pages/${page}/src/views/*`)
   return views.reduce((arr, template) => {
     const filename = `${page}/${path.basename(template).replace(/\.pre/, '')}`
-    return [
-      ...arr,
-      new HtmlWebpackPlugin({ alwaysWriteToDisk: true, template, filename })
-    ]
+    const options = { alwaysWriteToDisk: true, template, filename }
+    return [...arr, new HtmlWebpackPlugin(options)]
   }, [])
 }
 
