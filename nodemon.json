@@ -1,5 +1,8 @@
 {
   "restartable": "rs",
-  "ignore": ["src/components/*", "test/*", "dist/*"],
-  "ext": "js html"
+  "ignore": ["src/components/*", "test/*", "static/*"],
+  "ext": "js html",
+  "env": {
+    "NODE_ENV": "development"
+  }
 }

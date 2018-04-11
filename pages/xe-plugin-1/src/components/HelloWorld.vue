@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Awesome</h2>
+    <h3>Awesome!!</h3>
     <div class="message">{{message}}</div>
     <div class="prop-message message">{{pmessage}}</div>
   </div>
@@ -12,7 +12,7 @@ export default {
   name: 'hello-world',
   props: ['pmessage'],
   data() {
-    return { message: 'hello world from vue component!!! yeah!!' }
+    return { message: 'hello world from vue component!' }
   }
 }
 </script>

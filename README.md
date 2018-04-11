@@ -16,6 +16,9 @@ A minimal boilerplate for a full-stack application using
 * Minimal setup in both dev time and build time (see (./package.json)[./package.json])
 
 ### Notes:
+* Client script bundle are named as hash only to enable cross page caching.
+  Possibly we should make each node\_module module as a bundle to get the best
+  cache result
 * partials need to be put in a shareable place and configure before server start
 * babel-register might have performance penalty at runtime.
 * nodemon NOT yet reloads the browser(WIP)

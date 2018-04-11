@@ -1,9 +1,8 @@
+import path from 'path'
 import assert from 'assert'
 import webpack, { MultiCompiler, HotModuleReplacementPlugin } from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
-
-const env = process.env.NODE_ENV || 'development'
 
 async function wrapMiddleware(middleware, request) {
   const { req, res } = request.raw
@@ -32,8 +31,8 @@ export default {
   version: '0.0.1',
   dependencies: 'inert',
   register: async (server, options) => {
-    if (env === 'development') {
-      const compiler = webpack(options)
+    if (options.dev) {
+      const compiler = webpack(options.webpackConfig)
 
       checkHMRPlugin(compiler)
 
@@ -49,10 +48,11 @@ export default {
     } else {
       server.route({
         method: 'GET',
-        path: '/pages/{pagename}/dist/{filename}',
-        handler: (request, h) => {
-          const { pagename, filename } = request.params
-          return h.file(`pages/${pagename}/dist/${filename}`)
+        path: '/static/{file*}',
+        handler: {
+          directory: {
+            path: path.resolve(__dirname, '../static')
+          }
         }
       })
     }
