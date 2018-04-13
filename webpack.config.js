@@ -20,6 +20,7 @@ const instrumentViewFiles = (page) => {
 const makeConfig = (page) => ({
   name: page,
   mode: dev ? 'development' : 'production',
+  devtool: 'sourcemap',
   entry: [resolve(page, 'src/client.js')],
   output: {
     path: path.resolve(__dirname, 'static'),

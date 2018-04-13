@@ -4,24 +4,22 @@ A minimal boilerplate for a full-stack application using
 * webpack 4 + webpack-dev-server
 * vue\.js
 
-### Get Started
+### Get Treated
 ```
-yarn
-yarn dev
+yarn && yarn dev
 ```
-or **you need real super power**
+
+### Get it run locally
 ```
-yarn 
-yarn build
+yarn build && yarn serve
+```
+
+### Get it run with real super power
+
+```
+yarn && yarn build
 docker-compose up  # server runs at http://localhost:8888
 ```
-
-### Get for Prod
-```
-NODE_ENV=production yarn build
-NODE_ENV=production node server.js
-```
-
 
 ### TODO
 <ul style="background: #dcd75b">
@@ -37,6 +35,8 @@ NODE_ENV=production node server.js
   <li>Joi option validation</li>
   <li>Test(component, unit, it)</li>
   <li>Pact</li>
+  <li>set proper cache header for resource</li>
+  <li>Looking forward to webpack 5 html entry</li>
 </ul>
 
 ### Hightlights
