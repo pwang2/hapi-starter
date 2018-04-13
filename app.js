@@ -4,7 +4,6 @@ import handlebars from 'handlebars'
 import handlebarsHelper from 'handlebars-helpers'
 
 import appConfigRaw, { logger } from './app.config'
-import resolve from './app.config.resolver'
 
 handlebarsHelper(handlebars)
 
@@ -19,7 +18,7 @@ process.on('uncaughtException', (err) => {
 })
 
 async function main() {
-  const { manifest, options, enviroment } = resolve(appConfigRaw)
+  const { manifest, options, enviroment } = appConfigRaw
   const server = await glue.compose(manifest, options)
   server.views({
     engines: { html: handlebars },

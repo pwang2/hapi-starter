@@ -20,8 +20,8 @@ const instrumentViewFiles = (page) => {
 const makeConfig = (page) => ({
   name: page,
   mode: dev ? 'development' : 'production',
-  devtool: 'sourcemap',
-  entry: [resolve(page, 'src/client.js')],
+  devtool: dev ? '#eval-source-map' : '#source-map',
+  entry: resolve(page, 'src/client.js'),
   output: {
     path: path.resolve(__dirname, 'static'),
     publicPath: '/static/',
@@ -30,8 +30,9 @@ const makeConfig = (page) => ({
   devServer: {
     noInfo: true,
     hot: true,
-    port: 3001,
-    publicPath: '/static/'
+    port: 8888,
+    publicPath: '/static/',
+    proxy: { '/': `http://localhost:${process.env.PORT || 3000}` }
   },
   resolve: { alias: { vue$: 'vue/dist/vue.esm.js' } },
   plugins: [
@@ -40,7 +41,10 @@ const makeConfig = (page) => ({
     new HtmlWebpackHarddiskPlugin()
   ],
   module: {
-    rules: [{ test: /\.vue$/, loader: 'vue-loader' }]
+    rules: [
+      { test: /\.vue$/, exclude: /node_modules/, loader: 'vue-loader' },
+      { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' }
+    ]
   }
 })
 

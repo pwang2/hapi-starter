@@ -1,4 +1,4 @@
-version: '3'
+version: '3.4'
 services:
   hapi:
     build:
@@ -11,6 +11,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.static
+    depends_on:
+      - hapi
     environment:
       NODE_SERVER: hapi
       NODE_PORT: "3000"

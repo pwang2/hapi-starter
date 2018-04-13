@@ -1,16 +1,27 @@
-FROM node:8-alpine
+FROM     node:8-alpine
 
-WORKDIR /usr/share/node/app
+WORKDIR  /usr/share/node/app
 
-COPY package.json .
+ENV      NODE_ENV production
 
-RUN npm install
+RUN      apk add --update  python python-dev py-pip build-base && \
+         pip install virtualenv                                && \
+         rm -rf /var/cache/apk/*
 
-COPY . .
+COPY     package.json /tmp/package.json
+COPY     yarn.lock    /tmp/yarn.lock
 
-ENV NODE_ENV production
+RUN      cd /tmp && yarn
 
-CMD [ "node", "server.js" ]
+RUN      mkdir -p /usr/share/node/app/logs                     && \
+         cp    -a /tmp/node_modules /usr/share/node/app
+
+COPY     server.packed.js ./
+COPY     pages            ./pages
+COPY     handlebars       ./handlebars
+COPY     static           ./static
+
+CMD      [ "node", "server.packed.js" ]
 
 
 

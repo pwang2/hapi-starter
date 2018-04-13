@@ -1,14 +1,13 @@
 import bunyan from 'bunyan'
 import BunyanPrettystream from 'bunyan-prettystream'
-import pkg from '../package.json'
 
 const unifiedLogStream = new BunyanPrettystream()
 unifiedLogStream.pipe(process.stdout)
 
 export default {
-  name: pkg.name,
+  name: 'app',
   streams: [
-    { level: 'info', stream: unifiedLogStream },
+    { level: 'trace', stream: unifiedLogStream },
     {
       level: 'error',
       type: 'rotating-file',

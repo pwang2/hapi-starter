@@ -1,11 +1,11 @@
-import path from 'path'
-import controller from './controller'
+const path = require('path')
+const controller = require('./controller')
 
 // direction naming is used as namespacing here
 const name = path.basename(path.resolve(__dirname, '..'))
 const viewPath = path.resolve(__dirname, '../../../static', name)
 
-export default {
+module.exports= {
   name,
   register: async (server, options) => {
     const opts = { path: viewPath, ...options }

@@ -1,5 +1,5 @@
 {
-  "ignore": ["src/components/*", "test/*", "static/*"],
+  "ignore": ["src/components/*", "test/*", "static/*", "webpack.config.js"],
   "ext": "js html",
   "env": { "NODE_ENV": "development" }
 }

@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   home: (options) => (request, h) => {
     const context = {
       message: 'hello world from hapi!',

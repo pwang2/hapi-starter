@@ -4,7 +4,7 @@ A minimal boilerplate for a full-stack application using
 * webpack 4 + webpack-dev-server
 * vue\.js
 
-### Get Treated
+### Get treated
 ```
 yarn && yarn dev
 ```
@@ -18,12 +18,11 @@ yarn build && yarn serve
 
 ```
 yarn && yarn build
-docker-compose up  # server runs at http://localhost:8888
+docker-compose up                    # server runs at http://localhost:8888
 ```
 
 ### TODO
 <ul style="background: #dcd75b">
-  <li>sourcemap</li>
   <li>log strategy</li>
   <li>plugin interface definition</li>
   <li>app shared assets</li>
@@ -47,8 +46,11 @@ docker-compose up  # server runs at http://localhost:8888
 * Pages are isolated as hapi plugin and configured via glue manifest
 * Page views will be instrumented by html-webpack-plugin first and then used as handlebar templates. This solves the bundle injection gracefully.
 * Minimal setup in both dev time and build time (see (./package.json)[./package.json])
+* Static assets referenced in page plugin should be put in pluginName/assets data
+* 
 
 ### Notes:
+* always proxy nodejs server to static server(webpack-dev-server, http-server, nginx)
 * in development mode, js bundle is in memory. html files are always write to filesystem as handlebar views. in production mode, all asset including html files are output to static folder.
 * Client script bundle are named as hash only to enable cross page caching. Possibly we should make each node\_module module as a bundle to get the best cache result. webpack 4 splitChunk is like black magic still, need to watch the bundle generation for more complex case. 
 * Partials need to be put in a shareable place and configure before server start
