@@ -4,10 +4,11 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon server.js",
+    "dev-serve:webpack": "rimraf static && webpack-dev-server",
+    "dev-serve:hapi": "nodemon server.js",
+    "dev": "run-p dev-serve:*",
     "build": "rimraf static && NODE_ENV=production webpack --hide-modules",
-    "serve": "NODE_ENV=production node server.js",
-    "start": "npm run serve"
+    "start": "NODE_ENV=production node server.js"
   },
   "dependencies": {
     "@babel/core": "^7.0.0-beta.44",
@@ -34,7 +35,7 @@
     "eslint-plugin-vue": "^4.4.0",
     "glob": "^7.1.2",
     "glue": "^5.0.0",
-    "good-squeeze": "^5.0.2",
+    "h2o2": "^8.0.1",
     "handlebars": "^4.0.11",
     "handlebars-helpers": "^0.10.0",
     "hapi": "^17.3.1",
@@ -42,6 +43,7 @@
     "html-webpack-plugin": "3.0.7",
     "inert": "^5.1.0",
     "nodemon": "^1.17.3",
+    "npm-run-all": "^4.1.2",
     "oppsy": "^2.0.0",
     "prettier": "^1.11.1",
     "rimraf": "^2.6.2",
@@ -51,7 +53,6 @@
     "vue-template-compiler": "^2.5.16",
     "webpack": "^4.5.0",
     "webpack-cli": "^2.0.14",
-    "webpack-dev-middleware": "^3.1.2",
-    "webpack-hot-middleware": "^2.22.0"
+    "webpack-dev-server": "^3.1.3"
   }
 }

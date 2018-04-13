@@ -28,6 +28,7 @@ async function main() {
     helpersPath: 'handlebars/helpers',
     allowAbsolutePaths: true
   })
+
   await server.start()
   logger.info(`[${enviroment}] server running at: ${server.info.uri}`)
 }

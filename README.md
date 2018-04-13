@@ -1,8 +1,13 @@
 # Introduction
 A minimal boilerplate for a full-stack application using
 * hapi v17 + glue + handlebars
-* webpack 4 + webpack dev/hot middleware
+* webpack 4 + webpack-dev-server
 * vue\.js
+
+### TODO
+<ul style="background: #dcd75b">
+  <li>sourcemap </li>
+</ul>
 
 ### Hightlights
 * Require zero/minimal configuration for develop environment
@@ -35,4 +40,5 @@ yarn dev
 NODE_ENV=production yarn build
 NODE_ENV=production node server.js
 ```
+
 

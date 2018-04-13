@@ -3,7 +3,6 @@ const glob = require('glob')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin')
-
 const dev = require('./env').isDev
 
 const pages = glob.sync(`./pages/*/`).map((d) => path.basename(d))
@@ -21,14 +20,17 @@ const instrumentViewFiles = (page) => {
 const makeConfig = (page) => ({
   name: page,
   mode: dev ? 'development' : 'production',
-  entry: [
-    ...(dev ? [`webpack-hot-middleware/client?name=${page}`] : []),
-    resolve(page, 'src/client.js')
-  ],
+  entry: [resolve(page, 'src/client.js')],
   output: {
     path: path.resolve(__dirname, 'static'),
-    publicPath: dev ? '' : 'static/', // need this to inject script correctly
+    publicPath: '/static/',
     filename: dev ? `${page}.[name].js` : '[chunkhash].js'
+  },
+  devServer: {
+    noInfo: true,
+    hot: true,
+    port: 3001,
+    publicPath: '/static/'
   },
   resolve: { alias: { vue$: 'vue/dist/vue.esm.js' } },
   plugins: [

@@ -18,7 +18,7 @@ export default {
   props: ['pmessage'],
   data() {
     return {
-      message: 'hello world from vue component!',
+      message: 'hello world from vue component! v41',
       asyncMessage: '',
       loaded: false
     }

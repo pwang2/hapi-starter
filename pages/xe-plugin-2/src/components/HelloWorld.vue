@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Awesome!!</h2>
+    <h2>Awesome!</h2>
     <div class="message">{{message}}</div>
     <div class="prop-message message">{{pmessage}}</div>
   </div>
