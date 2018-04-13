@@ -4,7 +4,8 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin')
 
-const dev = (process.env.NODE_ENV || 'development') === 'development'
+const dev = require('./env').isDev
+
 const pages = glob.sync(`./pages/*/`).map((d) => path.basename(d))
 const resolve = (name, f) => path.resolve(__dirname, `pages/${name}/`, f)
 

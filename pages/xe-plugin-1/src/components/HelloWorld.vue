@@ -2,9 +2,10 @@
   <div>
     <div class="message">{{message}}</div>
     <div class="prop-message message">{{pmessage}}</div>
-    <div><span v-text="asyncMessage===''?'loading':'loaded'"></span> asynchronously from split chunk</div>
-    <marquee direction="down" width="250" height="200" behavior="alternate" style="border:1px solid
-#534534">
+    <h2 :style="{color:loaded?'green':'black'}">
+      <span v-text="loaded?'loaded':'loading'"></span> asynchronously from split chunk
+    </h2>
+    <marquee direction="down" width="250" height="200" behavior="alternate">
     <marquee behavior="alternate"> {{asyncMessage}} </marquee>
     </marquee>
   </div>
@@ -16,13 +17,18 @@ export default {
   name: 'hello-world',
   props: ['pmessage'],
   data() {
-    return { message: 'hello world from vue component!', asyncMessage: '' }
+    return {
+      message: 'hello world from vue component!',
+      asyncMessage: '',
+      loaded: false
+    }
   },
   created() {
     setTimeout(async () => {
       const { default: codemirror } = await import('codemirror')
       const { version } = codemirror
       this.asyncMessage = `codemirror ${version} loaded`
+      this.loaded = true
     }, 2000)
   }
 }

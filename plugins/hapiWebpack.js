@@ -31,8 +31,9 @@ export default {
   version: '0.0.1',
   dependencies: 'inert',
   register: async (server, options) => {
-    if (options.dev) {
+    if (options.isDev) {
       const compiler = webpack(options.webpackConfig)
+
       checkHMRPlugin(compiler)
 
       const devMiddleware = webpackDevMiddleware(compiler, { logLevel: 'warn' })

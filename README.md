@@ -14,6 +14,7 @@ A minimal boilerplate for a full-stack application using
 * Minimal setup in both dev time and build time (see (./package.json)[./package.json])
 
 ### Notes:
+* in development mode, js bundle is in memory. html files are always write to filesystem as handlebar views. in production mode, all asset including html files are output to static folder.
 * Client script bundle are named as hash only to enable cross page caching. Possibly we should make each node\_module module as a bundle to get the best cache result. webpack 4 splitChunk is like black magic still, need to watch the bundle generation for more complex case. 
 * Partials need to be put in a shareable place and configure before server start
 * babel-register might have performance penalty at runtime. could be fixed by transpile later
@@ -34,3 +35,4 @@ yarn dev
 NODE_ENV=production yarn build
 NODE_ENV=production node server.js
 ```
+

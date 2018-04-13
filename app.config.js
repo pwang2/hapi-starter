@@ -1,28 +1,40 @@
-import good from 'good'
-import inert from 'inert'
-import vision from 'vision'
-import goodConfig from './configs/good'
-import hapiWebpack from './plugins/hapiWebpack'
+import bunyan from 'bunyan'
+
+import { curEnv, isDev } from './env'
 import webpackConfig from './webpack.config'
-import page1 from './pages/xe-plugin-1/src/index'
-import page1Config from './configs/page1'
-import page2 from './pages/xe-plugin-2/src/index'
-import page2Config from './configs/page2'
+import bunyanLoggerConfig from './configs/bunyanLogger'
+import bunyanLogger from './plugins/bunyanLogger'
+import hapiWebpackPlugin from './plugins/hapiWebpack'
+import defaultRoutePlugin from './plugins/defaultRoute'
 
-const dev = (process.env.NODE_ENV || 'development') === 'development'
+const logger = bunyan.createLogger(bunyanLoggerConfig)
 
-const plugins = [
-  { plugin: inert },
-  { plugin: vision },
-  { plugin: good, options: goodConfig },
-  { plugin: hapiWebpack, options: { webpackConfig, dev } },
-  { plugin: page1, options: page1Config, routes: { prefix: '/page1' } },
-  { plugin: page2, options: page2Config, routes: { prefix: '/page2' } }
-]
+// export logger explicitly to use logger out of hapi
+export { logger }
 
-const manifest = {
-  server: { port: 3000, router: { stripTrailingSlash: true } },
-  register: { plugins }
+export default {
+  enviroment: curEnv,
+  options: {},
+  manifest: {
+    server: { port: 3000, router: { stripTrailingSlash: true } },
+    register: {
+      plugins: [
+        { plugin: 'inert' },
+        { plugin: 'vision' },
+        { plugin: bunyanLogger, options: { logger, opsInterval: 10000 } },
+        { plugin: hapiWebpackPlugin, options: { webpackConfig, isDev } },
+        { plugin: defaultRoutePlugin, options: { defaultRoute: '/page1' } },
+        {
+          plugin: 'xe-plugin-1',
+          options: { layout: 'default' },
+          routes: { prefix: '/page1' }
+        },
+        {
+          plugin: 'xe-plugin-2',
+          options: { layout: 'red' },
+          routes: { prefix: '/page2' }
+        }
+      ]
+    }
+  }
 }
-
-export default { manifest, options: {} }
