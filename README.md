@@ -4,16 +4,46 @@ A minimal boilerplate for a full-stack application using
 * webpack 4 + webpack-dev-server
 * vue\.js
 
+### Get Started
+```
+yarn
+yarn dev
+```
+or **you need real super power**
+```
+yarn 
+yarn build
+docker-compose up  # server runs at http://localhost:8888
+```
+
+### Get for Prod
+```
+NODE_ENV=production yarn build
+NODE_ENV=production node server.js
+```
+
+
 ### TODO
 <ul style="background: #dcd75b">
-  <li>sourcemap </li>
+  <li>sourcemap</li>
+  <li>log strategy</li>
+  <li>plugin interface definition</li>
+  <li>app shared assets</li>
+  <li>Service Proxy</li>
+  <li>Configurable Auth plugin</li>
+  <li>Configurable Cache plugin</li>
+  <li>env/rc support</li>
+  <li>Jenkinsfile</li>
+  <li>Joi option validation</li>
+  <li>Test(component, unit, it)</li>
+  <li>Pact</li>
 </ul>
 
 ### Hightlights
-* Require zero/minimal configuration for develop environment
+* Require zero/minimal configuration for develop environment.
 * Use ESM Module and babel-register to use ESM module directly
 * Use glue to make hapi server configuration simple and clear
-* Use webpack dev/hot middleware with hapi to integrate client + server seamless development experience
+* Use webpack-dev-server with hapi to integrate client + server seamless development experience
 * Pages are isolated as hapi plugin and configured via glue manifest
 * Page views will be instrumented by html-webpack-plugin first and then used as handlebar templates. This solves the bundle injection gracefully.
 * Minimal setup in both dev time and build time (see (./package.json)[./package.json])
@@ -28,17 +58,4 @@ A minimal boilerplate for a full-stack application using
     1. possibly we only need one bundle for one plugin scope with multiple views(pages)
     1. what if we do need pass the context when switching to other plugins. (POST from plugin1 and then redirect to other plugin's route)
     1. frontend component sharing. We might find some front end component is reusable across multiple page. In current project structure with plugin included, it is possible to reference by filepath, in a standalone plugin development workflow. It is discouraged. genrate standalone library i  better for this needs.
-
-### Get Started
-```
-yarn
-yarn dev
-```
-
-### Get for Prod
-```
-NODE_ENV=production yarn build
-NODE_ENV=production node server.js
-```
-
 

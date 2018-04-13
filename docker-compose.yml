@@ -1,0 +1,18 @@
+version: '3'
+services:
+  hapi:
+    build:
+      context: .
+      dockerfile: Dockerfile.hapi
+    expose:
+      - "3000"
+
+  static:
+    build:
+      context: .
+      dockerfile: Dockerfile.static
+    environment:
+      NODE_SERVER: hapi
+      NODE_PORT: "3000"
+    ports:
+      - "8888:80"

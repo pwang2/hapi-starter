@@ -1,0 +1,9 @@
+FROM nginx:1-alpine
+
+COPY static/ /usr/share/nginx/html/
+COPY nginx.conf /etc/nginx/nginx.conf.pre
+
+CMD envsubst '\$NODE_SERVER, \$NODE_PORT' \
+    < /etc/nginx/nginx.conf.pre \
+    >/etc/nginx/nginx.conf \
+    && nginx -g 'daemon off;'
