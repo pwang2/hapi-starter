@@ -7,7 +7,7 @@ export default {
     const log = request.getLogger()
     log.info('haha')
     request.server.log(['info', 'custom'], 'yeah')
-    request.server.log(['info', 'error'], new Error('ERROR'))
+    request.server.log(['info', 'error'], new Error('MY ERROR THROW BRUTALLY'))
     return h.view('index', context, options)
   },
   another: (options = { layout: 'default' }) => (request, h) =>

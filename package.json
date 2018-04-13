@@ -1,16 +1,17 @@
 {
   "name": "hapi-starter",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "license": "MIT",
   "scripts": {
     "dev-serve:webpack": "rimraf static && webpack-dev-server",
     "dev-serve:hapi": "nodemon server.js",
     "dev": "run-p dev-serve:*",
     "build": "rimraf static && NODE_ENV=production webpack --hide-modules",
-    "serve:static": "hs . -p 3001",
+    "yield": "node -e 'setTimeout(()=>{}, 3000)'; ",
+    "serve:static": "npm run yield && hs . -d false -p 8888 -P http://localhost:3000",
     "serve:hapi": "NODE_ENV=production node server.js",
-    "serve": "run-p serve:*"
+    "serve": "run-p serve:hapi serve:static*"
   },
   "dependencies": {
     "@babel/core": "^7.0.0-beta.44",
