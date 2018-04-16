@@ -5,6 +5,7 @@ import { curEnv } from './env'
 import bunyanLoggerConfig from './configs/bunyanLogger'
 import bunyanLogger from './plugins/bunyanLogger'
 import defaultRoutePlugin from './plugins/defaultRoute'
+import healthCheck from './plugins/healthCheck'
 
 const logger = bunyan.createLogger(bunyanLoggerConfig)
 
@@ -23,6 +24,8 @@ const config = {
       plugins: [
         { plugin: 'h2o2' },
         { plugin: 'vision' },
+        { plugin: 'crumb', options: { restful: true } },
+        { plugin: healthCheck },
         { plugin: bunyanLogger, options: { logger, opsInterval: 15000 } },
         { plugin: defaultRoutePlugin, options: { defaultRoute: '/page1' } },
         {

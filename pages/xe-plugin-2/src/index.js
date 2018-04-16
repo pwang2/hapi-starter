@@ -5,7 +5,7 @@ const controller = require('./controller')
 const name = path.basename(path.resolve(__dirname, '..'))
 const viewPath = path.resolve(__dirname, '../../../static', name)
 
-module.exports= {
+module.exports = {
   name,
   register: async (server, options) => {
     const opts = { path: viewPath, ...options }

@@ -29,7 +29,7 @@ export default {
       const { version } = codemirror
       this.asyncMessage = `codemirror ${version} loaded`
       this.loaded = true
-    }, 2000)
+    }, 1000)
   }
 }
 </script>

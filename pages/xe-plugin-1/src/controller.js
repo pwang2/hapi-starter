@@ -14,6 +14,5 @@ module.exports = {
     // request.server.log(['info', 'error'], new Error('MY ERROR THROW BRUTALLY'))
     return h.view('index', context, options)
   },
-  another: (options = { layout: 'default' }) => (request, h) =>
-    h.view('another', {}, options)
+  another: (options = { layout: 'default' }) => (request, h) => h.view('another', {}, options)
 }

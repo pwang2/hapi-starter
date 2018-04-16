@@ -1,10 +1,12 @@
 {
-  "presets": [
-    ["@babel/preset-env", { "module": false }],
-    "@babel/preset-stage-2"
-  ],
-  "plugins": [
-    "@babel/plugin-transform-modules-commonjs",
-    "@babel/plugin-transform-runtime"
-  ]
+  "env": {
+    "static": {
+      "presets": [["@babel/preset-env", { "module": false }], "@babel/preset-stage-2"],
+      "plugins": ["@babel/plugin-transform-modules-commonjs", "@babel/plugin-transform-runtime"]
+    },
+    "hapi": {
+      "presets": [["@babel/preset-env", { "targets": { "node": "current" } }], "@babel/preset-stage-2"],
+      "plugins": ["@babel/plugin-transform-modules-commonjs", "@babel/plugin-transform-runtime"]
+    }
+  }
 }

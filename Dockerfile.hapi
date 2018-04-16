@@ -2,16 +2,19 @@ FROM     node:8-alpine
 
 WORKDIR  /usr/share/node/app
 
+ARG      PORT=80
+ENV      PORT $PORT
 ENV      NODE_ENV production
 
 RUN      apk add --update  python python-dev py-pip build-base && \
+         pip install --upgrade pip                             && \
          pip install virtualenv                                && \
          rm -rf /var/cache/apk/*
 
 COPY     package.json /tmp/package.json
 COPY     yarn.lock    /tmp/yarn.lock
 
-RUN      cd /tmp && yarn
+RUN      cd /tmp && yarn && yarn cache clean
 
 RUN      mkdir -p /usr/share/node/app/logs                     && \
          cp    -a /tmp/node_modules /usr/share/node/app
@@ -23,5 +26,4 @@ COPY     static           ./static
 
 CMD      [ "node", "server.packed.js" ]
 
-
-
+HEALTHCHECK --timeout=0.1s --start-period=2s CMD wget -qO- http://localhost:3000/health || exit 1

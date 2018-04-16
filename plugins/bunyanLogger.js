@@ -6,12 +6,11 @@ const levelSortedHighToLow = Object.entries(levelFromName)
   .sort((a, b) => b[1] - a[1])
   .map((d) => d[0])
 
-function flatOpsData(obj, preKey = '', result = {}) {
+function flattenOpsData(obj, preKey = '', result = {}) {
   Object.entries(obj).forEach(([key, value]) => {
-    const isComplexValue =
-      typeof value === 'object' && Array.isArray(value) === false
+    const isComplexValue = typeof value === 'object' && Array.isArray(value) === false
     const flatedValues = isComplexValue
-      ? flatOpsData(value, key, result)
+      ? flattenOpsData(value, key, result)
       : { [preKey ? `${preKey}.${key}` : key]: value.toString() }
     Object.assign(result, flatedValues)
   })
@@ -37,8 +36,8 @@ export default {
       const oppsy = new Oppsy(server)
       oppsy.start(options.opsInterval || 15000)
       oppsy.on('ops', (data) => {
-        const flatedOpsData = flatOpsData(data)
-        logger.info({ ops: true, ...flatedOpsData }, 'server heartbeat')
+        const flatedOpsData = flattenOpsData(data)
+        logger.info({ ops: true, ping: true, ...flatedOpsData }, '💗 ')
       })
     })
 
@@ -69,12 +68,9 @@ export default {
       }
     })
 
-    server.events.on(
-      { name: 'request', channels: ['error'] },
-      (request, event) => {
-        logger.error(event.error, `Request ${event.request} failed`)
-      }
-    )
+    server.events.on({ name: 'request', channels: ['error'] }, (request, event) => {
+      logger.error(event.error, `Request ${event.request} failed`)
+    })
 
     server.events.on('response', (request) => {
       const { method, path, payload, raw } = request

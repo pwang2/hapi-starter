@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile.hapi
     expose:
-      - "3000"
+      - "80"
 
   static:
     build:
@@ -15,6 +15,6 @@ services:
       - hapi
     environment:
       NODE_SERVER: hapi
-      NODE_PORT: "3000"
+      NODE_PORT: "80"
     ports:
       - "8888:80"

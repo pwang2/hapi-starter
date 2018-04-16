@@ -5,6 +5,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin')
 const dev = require('./env').isDev
 
+// specify babel environment
+process.env.BABEL_ENV = 'static'
+
 const pages = glob.sync(`./pages/*/`).map((d) => path.basename(d))
 const resolve = (name, f) => path.resolve(__dirname, `pages/${name}/`, f)
 
@@ -18,18 +21,18 @@ const instrumentViewFiles = (page) => {
 }
 
 const makeConfig = (page) => ({
-  name: page,
   mode: dev ? 'development' : 'production',
   devtool: dev ? '#eval-source-map' : '#source-map',
   entry: resolve(page, 'src/client.js'),
   output: {
     path: path.resolve(__dirname, 'static'),
     publicPath: '/static/',
-    filename: dev ? `${page}.[name].js` : '[chunkhash].js'
+    filename: dev ? `${page}/[name].js` : '[chunkhash].js',
+    chunkFilename: dev ? `${page}/[id].js` : '[chunkhash].js'
   },
   devServer: {
-    noInfo: true,
     hot: true,
+    noInfo: true,
     port: 8888,
     publicPath: '/static/',
     proxy: { '/': `http://localhost:${process.env.PORT || 3000}` }
