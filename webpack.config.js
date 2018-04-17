@@ -32,7 +32,7 @@ const makeConfig = (page) => ({
   },
   devServer: {
     hot: true,
-    noInfo: true,
+    // stats: 'minimal',
     port: 8888,
     publicPath: '/static/',
     proxy: { '/': `http://localhost:${process.env.PORT || 3000}` }
@@ -46,7 +46,12 @@ const makeConfig = (page) => ({
   module: {
     rules: [
       { test: /\.vue$/, exclude: /node_modules/, loader: 'vue-loader' },
-      { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' }
+      { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' },
+      {
+        test: /\.(jpg|png|svg)$/,
+        loader: 'url-loader',
+        options: { limit: 8192, publicPath: '/static/' }
+      }
     ]
   }
 })

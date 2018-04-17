@@ -1,5 +1,8 @@
 <template>
   <div>
+    <em>Powered By</em>
+    <img width="100" height="100" src="../assets/images/webpack.svg"/>
+    <img width="272" height="92" src="../assets/images/google-logo.png"/>
     <div class="message">{{message}}</div>
     <div class="prop-message message">{{pmessage}}</div>
     <h2 :style="{color:loaded?'green':'black'}">
@@ -18,7 +21,7 @@ export default {
   props: ['pmessage'],
   data() {
     return {
-      message: 'hello world from vue component! v41',
+      message: 'hello world from vue component!',
       asyncMessage: '',
       loaded: false
     }
