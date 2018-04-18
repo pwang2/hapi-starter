@@ -72,3 +72,7 @@ docker-compose up                    # server runs at http://localhost:8888
 
 For script start watch/server which occupies stdout, to handle the exit code correctly, we use run-p to ensure all script are started, then between each child task, we use wait-on to setup the precedence. e.g.:
 We are proxy back hapi server to webpack-dev-server, so before webpack-dev-server start, we need to ensure the hapi server is ready through(wait-port), then before we open the webpack-dev-server in browser, we will use handlebar views from webpack compilation, then we use another wait-wds-ready to ensure the view files are emited in webpack. This is done through `run-p dev:\*` and in each sub script, we have wait-on in between. see package.json for detail.
+
+### known issue
+
+during nodemon restart, http-proxy-middleware will fail to connect.

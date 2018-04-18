@@ -1,5 +1,6 @@
 {
   "ignore": ["src/components/*", "test/*", "static/*", "webpack.config.js"],
   "ext": "js html",
-  "env": { "NODE_ENV": "development" }
+  "env": { "NODE_ENV": "development" },
+  "delay": "1000"
 }

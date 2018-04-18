@@ -1,16 +1,17 @@
+process.env.BABEL_ENV = 'static' // specify babel environment
+
 const path = require('path')
 const glob = require('glob')
 const webpack = require('webpack')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin')
+
+const HandlebarsResourceReplacementPlugin = require('./HandlebarsResourceReplacementPlugin.js')
 const dev = require('./env').isDev
 
-// specify babel environment
-process.env.BABEL_ENV = 'static'
-
+const proxy = { '/': `http://localhost:${process.env.PORT || 3000}` }
 const pages = glob.sync(`./pages/*/`).map((d) => path.basename(d))
-const resolve = (name, f) => path.resolve(__dirname, `pages/${name}/`, f)
-
 const instrumentViewFiles = (page) => {
   const views = glob.sync(`./pages/${page}/src/views/*`)
   return views.reduce((arr, template) => {
@@ -23,24 +24,27 @@ const instrumentViewFiles = (page) => {
 const makeConfig = (page) => ({
   mode: dev ? 'development' : 'production',
   devtool: dev ? '#eval-source-map' : '#source-map',
-  entry: resolve(page, 'src/client.js'),
+  entry: path.resolve(`pages/${page}/src/client.js`),
   output: {
     path: path.resolve(__dirname, 'static'),
     publicPath: '/static/',
-    filename: dev ? `${page}/[name].js` : '[chunkhash].js',
-    chunkFilename: dev ? `${page}/[id].js` : '[chunkhash].js'
+    filename: dev ? `${page}.[name].js` : '[chunkhash].js',
+    chunkFilename: dev ? `${page}.[id].js` : '[chunkhash].js'
   },
-  devServer: {
-    hot: true,
-    // stats: 'minimal',
-    port: 8888,
-    publicPath: '/static/',
-    proxy: { '/': `http://localhost:${process.env.PORT || 3000}` }
-  },
+  devServer: { hot: true, noInfo: true, port: 8888, publicPath: '/static/', proxy },
   resolve: { alias: { vue$: 'vue/dist/vue.esm.js' } },
   plugins: [
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(`pages/${page}/src/assets/**/*`),
+        to: dev ? `${page}.[name].[ext]` : '[hash].[ext]', // need to be same as output.filename
+        toType: 'template',
+        flatten: true
+      }
+    ]),
     ...(dev ? [new webpack.HotModuleReplacementPlugin()] : []),
     ...instrumentViewFiles(page),
+    new HandlebarsResourceReplacementPlugin(),
     new HtmlWebpackHarddiskPlugin()
   ],
   module: {

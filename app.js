@@ -20,6 +20,7 @@ process.on('uncaughtException', (err) => {
 async function main() {
   const { manifest, options, enviroment } = appConfigRaw
   const server = await glue.compose(manifest, options)
+
   server.views({
     engines: { html: handlebars },
     layoutPath: 'handlebars/layout',
@@ -27,6 +28,7 @@ async function main() {
     helpersPath: 'handlebars/helpers',
     allowAbsolutePaths: true
   })
+
   await server.start()
   logger.info(`[${enviroment}] server running at: ${server.info.uri}`)
 }
